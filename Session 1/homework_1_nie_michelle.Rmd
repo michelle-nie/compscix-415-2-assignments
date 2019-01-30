@@ -9,22 +9,66 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+My Github repository for my assignments can be found at this URL: https://github.com/michelle-nie/compscix-415-2-assignments
 
-```{r cars}
-summary(cars)
+```{r load_packages, warning=FALSE, message=FALSE}
+library(mdsr)
+library(tidyverse)
+
+data("WorldCities")
 ```
 
-## Including Plots
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r}
+glimpse (WorldCities) 
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+Question 1: There are 23,018 observations and 10 variables in the WorldCities data set. Some of the variable names are name, country, and population.
+
+```{r}
+WorldCities <- head(WorldCities, 200) 
+
+country_col <- WorldCities$country
+
+unique(country_col)
+```
+
+
+```{r}
+# Question 2
+region_col <- WorldCities$region
+unique(region_col)
+```
+
+
+```{r}
+country_col <- select(WorldCities, country)
+country_col <- WorldCities %>% select(country)
+```
+
+
+```{r message=FALSE, warning=FALSE}
+# Question 3
+WorldCities %>% select(country) %>% unique()
+```
+
+
+```{r message=FALSE, warning=FALSE}
+# Question 4
+WorldCities %>% ggplot(aes(x = population)) + 
+  geom_histogram() +
+  xlab('City Population')
+```
+
+
+```{r message=FALSE, warning=FALSE}
+WorldCities %>% ggplot(aes(x = population)) +
+  geom_histogram() +
+  xlab('City Population') +
+  ylab('Number of Cities') +
+  ggtitle('WorldCities Histogram') + 
+  theme_bw()
+```
+
